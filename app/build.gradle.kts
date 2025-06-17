@@ -19,6 +19,7 @@ android {
     }
 
     buildTypes {
+
         release {
             isMinifyEnabled = false
             proguardFiles(
@@ -41,6 +42,17 @@ android {
 
 dependencies {
 
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
+
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.0")
+
+//    implementation("io.insert-koin:koin-core:3.5.3")
+//    implementation("io.insert-koin:koin-android:3.5.3")
+//    implementation("io.insert-koin:koin-androidx-viewmodel:3.5.3")
+//    implementation("io.insert-koin:koin-androidx-compose:3.5.3")
 
     implementation(libs.androidx.lifecycle.viewmodel.compose)
 

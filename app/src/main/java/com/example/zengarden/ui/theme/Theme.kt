@@ -9,50 +9,66 @@ import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.ReadOnlyComposable
+import androidx.compose.runtime.staticCompositionLocalOf
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 
-private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
-    secondary = PurpleGrey80,
-    tertiary = Pink80
+data class ColorPalette(
+    val surface: Color,
+    val background: Color,
+    val primary: Color,
+    val onPrimary: Color,
+    val secondary: Color,
+    val onSecondary: Color,
+    val accent: Color,
+    val onAccent: Color,
+    val error: Color,
+
+    val title: Color,
+    val body: Color,
+    val label: Color,
 )
 
-private val LightColorScheme = lightColorScheme(
-    primary = Purple40,
-    secondary = PurpleGrey40,
-    tertiary = Pink40
-
-    /* Other default colors to override
-    background = Color(0xFFFFFBFE),
-    surface = Color(0xFFFFFBFE),
-    onPrimary = Color.White,
-    onSecondary = Color.White,
-    onTertiary = Color.White,
-    onBackground = Color(0xFF1C1B1F),
-    onSurface = Color(0xFF1C1B1F),
-    */
+val LightPalette = ColorPalette(
+    surface = Parchment,
+    background = TeaGreen,
+    primary = Olivine,
+    onPrimary = onPrimary,
+    secondary = DarkOliveGreen,
+    onSecondary = White,
+    accent = Chamoisee,
+    onAccent = Umber,
+    error = Error,
+    title = DarkGrey,
+    body = DarkGrey,
+    label = LightGrey
 )
+
+val DarkPalette = LightPalette.copy()
+
+val LocalCustomColors = staticCompositionLocalOf { LightPalette }
 
 @Composable
 fun ZenGardenTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
-    // Dynamic color is available on Android 12+
-    dynamicColor: Boolean = true,
+    useDarkTheme: Boolean = isSystemInDarkTheme(),
+
     content: @Composable () -> Unit
 ) {
-    val colorScheme = when {
-        dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
-            val context = LocalContext.current
-            if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
-        }
 
-        darkTheme -> DarkColorScheme
-        else -> LightColorScheme
-    }
 
-    MaterialTheme(
-        colorScheme = colorScheme,
-        typography = Typography,
+    val customColors = if (useDarkTheme) DarkPalette else LightPalette
+
+    CompositionLocalProvider(
+        LocalCustomColors provides customColors,
+
         content = content
     )
+}
+
+object ZenGardenTheme {
+    val colors: ColorPalette
+        @Composable @ReadOnlyComposable
+        get() = LocalCustomColors.current
 }
