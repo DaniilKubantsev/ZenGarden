@@ -17,7 +17,7 @@ interface AuthApi {
     ): Response<SuccessRegistrationResponseImpl>
 }
 
-private const val BASE_URL = "http://46.8.232.177:8000"
+private const val BASE_URL = ""
 
 private val loggingInterceptor = HttpLoggingInterceptor().apply {
     setLevel(HttpLoggingInterceptor.Level.BODY)
