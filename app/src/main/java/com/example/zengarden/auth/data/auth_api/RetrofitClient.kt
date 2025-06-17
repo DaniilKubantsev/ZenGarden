@@ -1,5 +1,6 @@
 package com.example.zengarden.auth.data.auth_api
 
+import com.example.zengarden.BuildConfig
 import com.example.zengarden.auth.domain.repository.RegistrationRequest
 import com.example.zengarden.auth.domain.repository.RegistrationResponse
 import okhttp3.OkHttpClient
@@ -17,7 +18,7 @@ interface AuthApi {
     ): Response<SuccessRegistrationResponseImpl>
 }
 
-private const val BASE_URL = ""
+private const val BASE_URL = BuildConfig.BASE_URL
 
 private val loggingInterceptor = HttpLoggingInterceptor().apply {
     setLevel(HttpLoggingInterceptor.Level.BODY)
