@@ -21,9 +21,9 @@ class AuthViewModel(
     val state = _state.asStateFlow()
 
     fun obtainEvent(event: AuthEvent) {
-        when (val currentState = _state.value) {
+        when (_state.value) {
             is AuthState.SignUpState -> handleSighUpEvents(event)
-            is AuthState.SignInState -> handleSighInEvents(currentState, event)
+            is AuthState.SignInState -> handleSighInEvents(event)
             is AuthState.IdleState -> {}
         }
     }
@@ -48,15 +48,15 @@ class AuthViewModel(
         }
     }
 
-    private fun handleSighInEvents(currentState: AuthState.SignInState, event: AuthEvent) {
-//        when (event) {
-//            is AuthEvent.OnSignInUsernameChanged -> _state.value = state.copy(username = event.value)
-//            is AuthEvent.OnSignInPasswordChanged -> _state.value = state.copy(password = event.value)
-//            AuthEvent.SubmitSignIn -> submitSignIn(state)
-//
-//            AuthEvent.SwitchToSignUp -> _state.value = AuthState.SignUpState()
-//            else -> {}
-//        }
+    private fun handleSighInEvents(event: AuthEvent) {
+        when (event) {
+            is AuthEvent.OnSignInUsernameChanged -> _state.value = (_state.value as AuthState.SignInState).copy(username = event.value)
+            is AuthEvent.OnSignInPasswordChanged -> _state.value = (_state.value as AuthState.SignInState).copy(password = event.value)
+            AuthEvent.SubmitSignIn -> submitSignIn()
+
+            AuthEvent.SwitchToSignUp -> _state.value = AuthState.SignUpState()
+            else -> {}
+        }
     }
 
 

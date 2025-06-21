@@ -30,7 +30,9 @@ class MainActivity : ComponentActivity() {
                     AuthScreen(
                         viewModel = viewModel(),
                         paddingValues = innerPadding,
-                        modifier = Modifier.fillMaxSize()
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .background(ZenGardenTheme.colors.surface)
                     )
                 }
             }

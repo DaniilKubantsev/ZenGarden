@@ -4,6 +4,8 @@ plugins {
     alias(libs.plugins.kotlin.compose)
 }
 
+android.buildFeatures.buildConfig = true
+
 android {
     namespace = "com.example.zengarden"
     compileSdk = 35
@@ -16,18 +18,26 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField("String", "BASE_URL", "\"http://46.8.232.177:8000\"")
     }
 
     buildTypes {
 
+        debug {
+
+        }
+
         release {
+
+
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
         }
-    }
+            }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
@@ -37,6 +47,7 @@ android {
     }
     buildFeatures {
         compose = true
+
     }
 }
 
@@ -48,6 +59,9 @@ dependencies {
 
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.0")
+
+
+    implementation ("androidx.compose.material:material-icons-extended")
 
 //    implementation("io.insert-koin:koin-core:3.5.3")
 //    implementation("io.insert-koin:koin-android:3.5.3")
@@ -64,6 +78,7 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    implementation(libs.androidx.animation.core.lint)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
