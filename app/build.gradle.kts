@@ -37,7 +37,7 @@ android {
                 "proguard-rules.pro"
             )
         }
-            }
+    }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
@@ -61,12 +61,14 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.0")
 
 
-    implementation ("androidx.compose.material:material-icons-extended")
+    implementation("androidx.compose.material:material-icons-extended")
 
-//    implementation("io.insert-koin:koin-core:3.5.3")
-//    implementation("io.insert-koin:koin-android:3.5.3")
-//    implementation("io.insert-koin:koin-androidx-viewmodel:3.5.3")
-//    implementation("io.insert-koin:koin-androidx-compose:3.5.3")
+// Koin Core
+    implementation("io.insert-koin:koin-core:3.5.0")
+
+// Android (ViewModel + Lifecycle)
+    implementation("io.insert-koin:koin-android:3.5.0")
+    implementation("io.insert-koin:koin-androidx-compose:3.5.0")
 
     implementation(libs.androidx.lifecycle.viewmodel.compose)
 

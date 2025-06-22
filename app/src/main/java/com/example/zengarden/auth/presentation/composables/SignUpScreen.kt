@@ -38,7 +38,7 @@ import com.example.zengarden.R
 import com.example.zengarden.auth.presentation.AuthEvent
 import com.example.zengarden.auth.presentation.AuthState
 import com.example.zengarden.ui.theme.ZenGardenTheme
-import com.example.zengarden.ui.theme.onPrimary
+
 
 @Composable
 fun SignUpScreen(
@@ -58,6 +58,20 @@ fun SignUpScreen(
             modifier = Modifier
                 .fillMaxWidth(0.8f)
         ) {
+
+            Text(
+                text = stringResource(R.string.sign_up) + " " + stringResource(R.string.seedling_emj),
+                color = ZenGardenTheme.colors.onAccent,
+                style = TextStyle(
+                    fontWeight = FontWeight.ExtraBold,
+                    fontSize = 28.sp
+                ),
+                modifier = Modifier
+                    .padding(start = 10.dp)
+            )
+
+            Spacer(Modifier.height(20.dp))
+
             UsernameTextField(
                 text = state.username,
                 onValueChange = { onEvent(AuthEvent.OnSignUpUsernameChanged(it)) },

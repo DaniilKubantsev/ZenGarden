@@ -71,7 +71,8 @@ fun UsernameTextField(
             focusedTextColor = ZenGardenTheme.colors.onPrimary,
             unfocusedTextColor = ZenGardenTheme.colors.onPrimary,
             focusedTrailingIconColor = ZenGardenTheme.colors.onPrimary,
-            unfocusedTrailingIconColor = ZenGardenTheme.colors.onPrimary
+            unfocusedTrailingIconColor = ZenGardenTheme.colors.onPrimary,
+            cursorColor = ZenGardenTheme.colors.onPrimary
         ),
         leadingIcon = {
             val image = Icons.Filled.AccountCircle

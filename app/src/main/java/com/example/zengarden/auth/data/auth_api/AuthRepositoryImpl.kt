@@ -1,13 +1,13 @@
 package com.example.zengarden.auth.data.auth_api
 
 import com.example.zengarden.auth.domain.repository.AuthRepository
-import com.example.zengarden.auth.domain.repository.RegistrationRequest
+import com.example.zengarden.auth.domain.repository.SignUpRequest
 import com.example.zengarden.auth.domain.repository.RegistrationResponse
 
 class AuthRepositoryImpl(
     private val authApi: AuthApi
 ): AuthRepository {
-    override suspend fun register(request: RegistrationRequest): RegistrationResponse {
+    override suspend fun register(request: SignUpRequest): RegistrationResponse {
         val response = authApi.register(registrationRequest = request as RegistrationRequestImpl)
 
         if (response.isSuccessful) {
@@ -18,14 +18,14 @@ class AuthRepositoryImpl(
             )
         }
         else {
-            val errorJson = response.errorBody()?.string()
-            // распарсить и пробросить ошибку по-своему
-            throw Exception("Ошибка регистрации: $errorJson")
+            val errorJson = response.errorBody().toString()
+            val errorCode = response.code()
+            throw Exception("Ошибка регистрации: $errorJson\t$errorCode")
         }
     }
 }
 
 
-fun createAuthRepositoryImpl(): AuthRepositoryImpl {
-    return AuthRepositoryImpl(authApi = createAuthApi())
-}
+//fun createAuthRepositoryImpl(): AuthRepositoryImpl {
+//    return AuthRepositoryImpl(authApi = createAuthApi())
+//}

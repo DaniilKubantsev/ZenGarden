@@ -6,7 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.zengarden.auth.data.auth_api.RegistrationRequestImpl
 import com.example.zengarden.auth.data.auth_api.SuccessRegistrationResponseImpl
 
-import com.example.zengarden.auth.data.auth_api.createAuthRepositoryImpl
+
 import com.example.zengarden.auth.domain.repository.AuthRepository
 import com.example.zengarden.auth.domain.repository.RegistrationResponse
 import kotlinx.coroutines.Dispatchers
@@ -15,7 +15,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class AuthViewModel(
-    private val authRepository: AuthRepository = createAuthRepositoryImpl()
+    private val authRepository: AuthRepository
 ) : ViewModel() {
     private val _state = MutableStateFlow<AuthState>(AuthState.SignUpState())
     val state = _state.asStateFlow()

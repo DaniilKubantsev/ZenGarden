@@ -7,6 +7,10 @@
 
     <string name="sign_in">Sign In</string>
     <string name="sign_up">Sign Up</string>
+
+    <string name="potted_plant_emj">🪴</string>
+    <string name="seedling_emj">🌱</string>
+
     <string name="to_sign_in">To sign in?</string>
     <string name="to_sign_up">To sign up?</string>
 

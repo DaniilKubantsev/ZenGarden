@@ -1,8 +1,6 @@
 package com.example.zengarden.auth.data.auth_api
 
 import com.example.zengarden.BuildConfig
-import com.example.zengarden.auth.domain.repository.RegistrationRequest
-import com.example.zengarden.auth.domain.repository.RegistrationResponse
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Response
@@ -18,21 +16,25 @@ interface AuthApi {
     ): Response<SuccessRegistrationResponseImpl>
 }
 
-private const val BASE_URL = BuildConfig.BASE_URL
 
-private val loggingInterceptor = HttpLoggingInterceptor().apply {
-    setLevel(HttpLoggingInterceptor.Level.BODY)
+fun createRetrofit(): Retrofit {
+    val BASE_URL = BuildConfig.BASE_URL
+
+    val loggingInterceptor = HttpLoggingInterceptor().apply {
+        setLevel(HttpLoggingInterceptor.Level.BODY)
+    }
+
+    val httpClient = OkHttpClient.Builder()
+        .addInterceptor(loggingInterceptor)
+        .build()
+
+    return Retrofit.Builder()
+        .baseUrl(BASE_URL)
+        .client(httpClient)
+        .addConverterFactory(GsonConverterFactory.create())
+        .build()
 }
 
-private val httpClient = OkHttpClient.Builder()
-    .addInterceptor(loggingInterceptor)
-    .build()
 
 
-private val retrofit = Retrofit.Builder()
-    .baseUrl(BASE_URL)
-    .client(httpClient)
-    .addConverterFactory(GsonConverterFactory.create())
-    .build()
-
-fun createAuthApi(): AuthApi = retrofit.create(AuthApi::class.java)
+fun createAuthApi(retrofit:Retrofit): AuthApi = retrofit.create(AuthApi::class.java)

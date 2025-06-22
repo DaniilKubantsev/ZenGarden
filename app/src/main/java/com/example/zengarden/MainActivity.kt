@@ -18,6 +18,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.zengarden.auth.presentation.AuthScreen
 import com.example.zengarden.auth.presentation.AuthViewModel
 import com.example.zengarden.ui.theme.ZenGardenTheme
+import org.koin.androidx.compose.koinViewModel
 
 
 class MainActivity : ComponentActivity() {
@@ -28,7 +29,7 @@ class MainActivity : ComponentActivity() {
             ZenGardenTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     AuthScreen(
-                        viewModel = viewModel(),
+                        viewModel = koinViewModel(),
                         paddingValues = innerPadding,
                         modifier = Modifier
                             .fillMaxSize()

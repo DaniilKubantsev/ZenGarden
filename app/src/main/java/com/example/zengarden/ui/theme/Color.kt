@@ -24,4 +24,4 @@ val Error = Color(0xffff3333)
 val DarkGrey = Color(0xff363737)
 val LightGrey = Color(0xFF848787)
 
-val onPrimary = Color(0xFF4C6E16)
+val onSecondary = Color(0xFF3E5D12)

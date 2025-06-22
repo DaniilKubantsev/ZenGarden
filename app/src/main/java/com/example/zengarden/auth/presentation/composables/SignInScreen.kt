@@ -43,9 +43,23 @@ fun SignInScreen(
             modifier = Modifier
                 .fillMaxWidth(0.8f)
         ) {
+
+            Text(
+                text = stringResource(R.string.sign_in) + " " + stringResource(R.string.potted_plant_emj),
+                color = ZenGardenTheme.colors.onAccent,
+                style = TextStyle(
+                    fontWeight = FontWeight.ExtraBold,
+                    fontSize = 28.sp
+                ),
+                modifier = Modifier
+                    .padding(start = 10.dp)
+            )
+
+            Spacer(Modifier.height(20.dp))
+
             UsernameTextField(
                 text = state.username,
-                onValueChange = { onEvent(AuthEvent.OnSignUpUsernameChanged(it)) },
+                onValueChange = { onEvent(AuthEvent.OnSignInUsernameChanged(it)) },
                 placeholder = "Username",
                 modifier = Modifier
                     .fillMaxWidth()
@@ -55,7 +69,7 @@ fun SignInScreen(
 
             PasswordTextField(
                 text = state.password,
-                onValueChange = { onEvent(AuthEvent.OnSignUpPasswordChanged(it)) },
+                onValueChange = { onEvent(AuthEvent.OnSignInPasswordChanged(it)) },
                 placeholder = "Password",
                 modifier = Modifier
                     .fillMaxWidth()
