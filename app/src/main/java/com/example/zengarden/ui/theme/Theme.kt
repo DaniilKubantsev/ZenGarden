@@ -15,60 +15,30 @@ import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 
-data class ColorPalette(
-    val surface: Color,
-    val background: Color,
-    val primary: Color,
-    val onPrimary: Color,
-    val secondary: Color,
-    val onSecondary: Color,
-    val accent: Color,
-    val onAccent: Color,
-    val error: Color,
 
-    val title: Color,
-    val body: Color,
-    val label: Color,
-)
-
-val LightPalette = ColorPalette(
-    surface = Parchment,
-    background = TeaGreen,
-    primary = Olivine,
-    onPrimary = DarkOliveGreen,
-    secondary = DarkOliveGreen,
-    onSecondary = White,
-    accent = Chamoisee,
-    onAccent = Umber,
-    error = Error,
-    title = DarkGrey,
-    body = DarkGrey,
-    label = LightGrey
-)
-
-val DarkPalette = LightPalette.copy()
-
-val LocalCustomColors = staticCompositionLocalOf { LightPalette }
+val LocalCustomColors = staticCompositionLocalOf { lightZenGardenColorScheme }
+val LocalCustomTypography = staticCompositionLocalOf { zenGardenTypography }
 
 @Composable
 fun ZenGardenTheme(
     useDarkTheme: Boolean = isSystemInDarkTheme(),
-
     content: @Composable () -> Unit
 ) {
-
-
-    val customColors = if (useDarkTheme) DarkPalette else LightPalette
+    val customColors = if (useDarkTheme) darkZenGardenColorScheme else lightZenGardenColorScheme
 
     CompositionLocalProvider(
         LocalCustomColors provides customColors,
-
+        LocalCustomTypography provides zenGardenTypography,
         content = content
     )
 }
 
 object ZenGardenTheme {
-    val colors: ColorPalette
+    val colors: ZenGardenColorScheme
         @Composable @ReadOnlyComposable
         get() = LocalCustomColors.current
+
+    val typography: ZenGardenTypography
+        @Composable @ReadOnlyComposable
+        get() = LocalCustomTypography.current
 }

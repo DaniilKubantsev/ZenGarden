@@ -3,6 +3,7 @@ package com.example.zengarden.auth.presentation.composables
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
@@ -47,10 +48,7 @@ fun SignInScreen(
             Text(
                 text = stringResource(R.string.sign_in) + " " + stringResource(R.string.potted_plant_emj),
                 color = ZenGardenTheme.colors.onAccent,
-                style = TextStyle(
-                    fontWeight = FontWeight.ExtraBold,
-                    fontSize = 28.sp
-                ),
+                style = ZenGardenTheme.typography.title,
                 modifier = Modifier
                     .padding(start = 10.dp)
             )
@@ -75,11 +73,25 @@ fun SignInScreen(
                     .fillMaxWidth()
             )
 
-            Spacer(Modifier.height(25.dp))
+            Box(
+                contentAlignment = Alignment.BottomStart,
+                modifier = Modifier.height(30.dp)
+            ) {
+                if (state.error != null) {
+                    Text(
+                        text = state.error,
+                        color = ZenGardenTheme.colors.error,
+                        style = ZenGardenTheme.typography.bodySmall,
+                        modifier = Modifier
+                            .padding(start = 20.dp)
+                    )
+                }
+            }
 
             ActionButton(
-                onClick = { onEvent(AuthEvent.SubmitSignUp) },
+                onClick = { onEvent(AuthEvent.SubmitSignIn) },
                 text = stringResource(R.string.sign_in),
+                isLoading = state.isLoading,
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(55.dp)
@@ -90,10 +102,7 @@ fun SignInScreen(
             Text(
                 text = stringResource(R.string.to_sign_up),
                 color = ZenGardenTheme.colors.onAccent,
-                style = TextStyle(
-                    fontWeight = FontWeight.ExtraBold,
-                    fontSize = 20.sp
-                ),
+                style = ZenGardenTheme.typography.label,
                 modifier = Modifier
                     .padding(start = 20.dp)
                     .clickable {

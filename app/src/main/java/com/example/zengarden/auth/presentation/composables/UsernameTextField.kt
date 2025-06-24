@@ -50,8 +50,7 @@ fun UsernameTextField(
         Text(
             text = placeholder,
             color = ZenGardenTheme.colors.onPrimary,
-            fontWeight = FontWeight.ExtraBold,
-            fontSize = 20.sp,
+            style = ZenGardenTheme.typography.label,
             modifier = Modifier
                 .padding(vertical = 0.dp, horizontal = 20.dp)
         )
@@ -84,10 +83,7 @@ fun UsernameTextField(
         },
         shape = CircleShape,
         singleLine = true,
-        textStyle = TextStyle(
-            fontWeight = FontWeight.ExtraBold,
-            fontSize = 16.sp
-        ),
+        textStyle = ZenGardenTheme.typography.bodySmall,
         enabled = enabled,
         modifier = modifier
     )

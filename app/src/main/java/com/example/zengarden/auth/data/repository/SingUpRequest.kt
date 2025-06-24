@@ -1,10 +1,9 @@
-package com.example.zengarden.auth.data.auth_api
+package com.example.zengarden.auth.data.repository
 
-import com.example.zengarden.auth.domain.repository.SignUpRequest
 import com.google.gson.annotations.SerializedName
 
-data class RegistrationRequestImpl(
+data class SingUpRequest(
     @SerializedName("username") val username: String = "",
     @SerializedName("password") val password: String = "",
     @SerializedName("password2") val password2: String = "",
-) : SignUpRequest
+)

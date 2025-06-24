@@ -3,12 +3,10 @@ package com.example.zengarden.auth.presentation
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.zengarden.auth.data.auth_api.RegistrationRequestImpl
-import com.example.zengarden.auth.data.auth_api.SuccessRegistrationResponseImpl
-
-
+import com.example.zengarden.auth.domain.features.Resource
 import com.example.zengarden.auth.domain.repository.AuthRepository
-import com.example.zengarden.auth.domain.repository.RegistrationResponse
+import com.example.zengarden.auth.domain.repository.SignInCredentials
+import com.example.zengarden.auth.domain.repository.SignUpCredentials
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -33,6 +31,7 @@ class AuthViewModel(
             is AuthEvent.OnSignUpUsernameChanged -> {
                 _state.value = (_state.value as AuthState.SignUpState).copy(username = event.value)
             }
+
             is AuthEvent.OnSignUpPasswordChanged -> {
                 _state.value = (_state.value as AuthState.SignUpState).copy(password = event.value)
             }
@@ -63,31 +62,69 @@ class AuthViewModel(
     private fun submitSignUp() {
         val currentState = _state.value as AuthState.SignUpState
 
+        _state.value = (_state.value as AuthState.SignUpState).copy(
+            isLoading = true
+        )
+
         viewModelScope.launch(Dispatchers.IO) {
-            try {
-                val registrationRequest = RegistrationRequestImpl(
-                    username = currentState.username,
-                    password = currentState.password,
-                    password2 = currentState.confirmPassword
-                )
+            val credentials = SignUpCredentials(
+                username = currentState.username,
+                password = currentState.password,
+                confirmPassword = currentState.confirmPassword
+            )
 
-                val result = authRepository.register(
-                    request = registrationRequest
-                ) as SuccessRegistrationResponseImpl
-                Log.w("REGISTRATION", "SUCCESS: ${result.tokenType}")
-
-
-
-
-            } catch(e: Exception) {
-                Log.e("ERROR", e.toString())
+            when(val result = authRepository.signUp(credentials = credentials)) {
+                is Resource.Success -> {
+                    Log.w("SIGN UP", "SUCCESS: ${result.data}")
+                    _state.value = (_state.value as AuthState.SignUpState).copy(
+                        error = null,
+                        isLoading = false
+                    )
+                }
+                is Resource.Error -> {
+                    Log.w("SIGN UP", "ERROR: CODE ${result.message}")
+                    _state.value = (_state.value as AuthState.SignUpState).copy(
+                        error = result.message,
+                        isLoading = false
+                    )
+                }
             }
         }
     }
 
 
-    private fun submitSignIn(): Any {
-        TODO()
+    private fun submitSignIn() {
+        Log.w("AUTH_VIEWMODEL", "SIGN IN CALL START")
+        val currentState = _state.value as AuthState.SignInState
+
+        _state.value = (_state.value as AuthState.SignInState).copy(
+            isLoading = true
+        )
+
+        viewModelScope.launch(Dispatchers.IO) {
+            val credentials = SignInCredentials(
+                username = currentState.username,
+                password = currentState.password,
+            )
+
+            when(val result = authRepository.signIn(credentials = credentials)) {
+                is Resource.Success -> {
+                    Log.w("SIGN IN", "SUCCESS: ${result.data}")
+                    _state.value = (_state.value as AuthState.SignInState).copy(
+                        error = null,
+                        isLoading = false
+                    )
+                }
+                is Resource.Error -> {
+                    Log.w("SIGN IN", "ERROR: CODE ${result.message}")
+                    _state.value = (_state.value as AuthState.SignInState).copy(
+                        error = result.message,
+                        isLoading = false
+                    )
+                }
+            }
+        }
+        Log.w("AUTH_VIEWMODEL", "SIGN IN CALL END")
     }
 
 

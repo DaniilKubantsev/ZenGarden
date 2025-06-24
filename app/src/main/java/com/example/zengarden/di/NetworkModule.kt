@@ -1,8 +1,8 @@
 package com.example.zengarden.di
 
-import com.example.zengarden.auth.data.auth_api.AuthApi
-import com.example.zengarden.auth.data.auth_api.createAuthApi
-import com.example.zengarden.auth.data.auth_api.createRetrofit
+import com.example.zengarden.auth.data.remote.AuthApi
+import com.example.zengarden.auth.data.remote.createAuthApi
+import com.example.zengarden.core.network.createRetrofit
 import org.koin.dsl.module
 import retrofit2.Retrofit
 

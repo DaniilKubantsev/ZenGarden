@@ -9,7 +9,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.ProgressIndicatorDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MonotonicFrameClock
@@ -28,6 +30,7 @@ import com.example.zengarden.ui.theme.ZenGardenTheme
 fun ActionButton(
     onClick: () -> Unit,
     text: String = "",
+    isLoading: Boolean = false,
     enabled: Boolean = true,
     modifier: Modifier = Modifier
 ) {
@@ -39,13 +42,18 @@ fun ActionButton(
             contentColor = ZenGardenTheme.colors.onAccent
         )
     ) {
-        Text(
-            text = text,
-            style = TextStyle(
-                fontWeight = FontWeight.ExtraBold,
-                fontSize = 20.sp
-            ),
-        )
+        if (isLoading){
+            CircularProgressIndicator(
+                color = ZenGardenTheme.colors.onAccent
+            )
+        } else {
+            Text(
+                text = text,
+                style = ZenGardenTheme.typography.label,
+            )
+        }
+
+
     }
 }
 
@@ -63,7 +71,14 @@ fun ActionButtonPreview() {
         ) {
             ActionButton(
                 onClick = {},
-
+                isLoading = true,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(50.dp)
+            )
+            ActionButton(
+                onClick = {},
+                isLoading = false,
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(50.dp)

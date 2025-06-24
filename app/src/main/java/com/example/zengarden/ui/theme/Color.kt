@@ -19,7 +19,7 @@ val Umber = Color(0xff6c584c)
 
 val White = Color(0xffffffff)
 
-val Error = Color(0xffff3333)
+val Error = Color(0xFFFA4F4F)
 
 val DarkGrey = Color(0xff363737)
 val LightGrey = Color(0xFF848787)
