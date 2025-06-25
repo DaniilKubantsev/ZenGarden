@@ -1,4 +1,4 @@
-package com.example.zengarden.auth.data.repository
+package com.example.zengarden.auth.data.remote
 
 import com.google.gson.annotations.SerializedName
 

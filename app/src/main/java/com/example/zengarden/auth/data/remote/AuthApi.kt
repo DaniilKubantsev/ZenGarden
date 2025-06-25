@@ -1,8 +1,6 @@
 package com.example.zengarden.auth.data.remote
 
 
-import com.example.zengarden.auth.data.repository.JwtResponse
-import com.example.zengarden.auth.data.repository.SingUpRequest
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.http.Body

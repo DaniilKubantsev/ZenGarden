@@ -1,7 +1,8 @@
 package com.example.zengarden.auth.data.repository
 
 import com.example.zengarden.auth.data.remote.AuthApi
-import com.example.zengarden.auth.domain.features.Resource
+import com.example.zengarden.auth.data.remote.SingUpRequest
+import com.example.zengarden.core.utils.Resource
 import com.example.zengarden.auth.domain.repository.AuthRepository
 import com.example.zengarden.auth.domain.repository.JwtData
 import com.example.zengarden.auth.domain.repository.SignInCredentials

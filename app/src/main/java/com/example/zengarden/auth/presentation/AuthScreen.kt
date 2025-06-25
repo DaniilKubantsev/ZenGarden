@@ -2,6 +2,7 @@ package com.example.zengarden.auth.presentation
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import com.example.zengarden.auth.presentation.composables.SignInScreen
@@ -11,6 +12,7 @@ import com.example.zengarden.auth.presentation.composables.SignUpScreen
 fun AuthScreen(
     viewModel: AuthViewModel,
     paddingValues: PaddingValues,
+    onRegisterSuccess: () -> Unit,
     modifier: Modifier,
 ) {
     val state = viewModel.state.collectAsState()
@@ -33,5 +35,15 @@ fun AuthScreen(
             )
         }
         is AuthState.IdleState -> {}
+    }
+
+    LaunchedEffect(key1 = viewModel) {
+        viewModel.effect.collect { effect ->
+            when (effect) {
+                is AuthEffect.NavigateToMain -> {
+                    onRegisterSuccess()
+                }
+            }
+        }
     }
 }

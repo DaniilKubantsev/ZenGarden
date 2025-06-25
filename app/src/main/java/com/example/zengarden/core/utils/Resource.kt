@@ -1,4 +1,4 @@
-package com.example.zengarden.auth.domain.features
+package com.example.zengarden.core.utils
 
 sealed class Resource<T>(
     val data: T? = null,

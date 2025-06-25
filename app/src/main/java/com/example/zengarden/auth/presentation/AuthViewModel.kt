@@ -3,20 +3,27 @@ package com.example.zengarden.auth.presentation
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.zengarden.auth.domain.features.Resource
+import com.example.zengarden.core.utils.Resource
 import com.example.zengarden.auth.domain.repository.AuthRepository
 import com.example.zengarden.auth.domain.repository.SignInCredentials
 import com.example.zengarden.auth.domain.repository.SignUpCredentials
+import com.example.zengarden.core.network.TokenManager
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
 class AuthViewModel(
-    private val authRepository: AuthRepository
+    private val authRepository: AuthRepository,
+    private val jwtManager: TokenManager,
 ) : ViewModel() {
     private val _state = MutableStateFlow<AuthState>(AuthState.SignUpState())
     val state = _state.asStateFlow()
+
+    private val _effect = Channel<AuthEffect>(Channel.BUFFERED)
+    val effect = _effect.receiveAsFlow()
 
     fun obtainEvent(event: AuthEvent) {
         when (_state.value) {
@@ -80,6 +87,8 @@ class AuthViewModel(
                         error = null,
                         isLoading = false
                     )
+                    jwtManager.saveToken(result.data!!.accessToken)
+                    _effect.send(AuthEffect.NavigateToMain)
                 }
                 is Resource.Error -> {
                     Log.w("SIGN UP", "ERROR: CODE ${result.message}")
@@ -114,6 +123,8 @@ class AuthViewModel(
                         error = null,
                         isLoading = false
                     )
+                    jwtManager.saveToken(result.data!!.accessToken)
+                    _effect.send(AuthEffect.NavigateToMain)
                 }
                 is Resource.Error -> {
                     Log.w("SIGN IN", "ERROR: CODE ${result.message}")
