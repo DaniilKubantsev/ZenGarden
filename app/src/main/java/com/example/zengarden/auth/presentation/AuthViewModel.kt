@@ -19,7 +19,7 @@ class AuthViewModel(
     private val authRepository: AuthRepository,
     private val jwtManager: TokenManager,
 ) : ViewModel() {
-    private val _state = MutableStateFlow<AuthState>(AuthState.SignUpState())
+    private val _state = MutableStateFlow<AuthState>(AuthState.SignInState())
     val state = _state.asStateFlow()
 
     private val _effect = Channel<AuthEffect>(Channel.BUFFERED)

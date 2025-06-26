@@ -12,7 +12,7 @@ sealed interface AuthState {
     data class SignInState(
         val username: String = "",
         val password: String = "",
-        val error: String? = "aljskdhfljkashdfa",
+        val error: String? = "",
         val isLoading: Boolean = false,
     ) : AuthState
 

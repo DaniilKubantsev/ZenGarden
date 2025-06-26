@@ -39,7 +39,10 @@ class MainActivity : ComponentActivity() {
         setContent {
             val navController = rememberNavController()
             ZenGardenTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                Scaffold(modifier = Modifier
+                    .fillMaxSize()
+                    .background(ZenGardenTheme.colors.surface)
+                ) { innerPadding ->
 
                     val jwtManager = JwtManager(applicationContext)
                     //jwtManager.clearToken()

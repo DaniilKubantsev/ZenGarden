@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -36,6 +37,7 @@ fun CustomTextField(
     value: String,
     onValueChange: (String) -> Unit,
     modifier: Modifier = Modifier,
+    placeholder: String = "",
     shape: Shape = RoundedCornerShape(5.dp),
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     style: TextStyle = TextStyle.Default,
@@ -76,7 +78,15 @@ fun CustomTextField(
                 modifier = Modifier
 
             ) {
+                if (value.isEmpty()) {
+                    Text(
+                        text = placeholder,
+                        style = style,
+                        color = textColor
+                    )
+                }
                 innerTextField()
+
             }
         }
     }

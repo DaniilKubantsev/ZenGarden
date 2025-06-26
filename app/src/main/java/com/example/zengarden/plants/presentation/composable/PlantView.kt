@@ -30,6 +30,7 @@ import com.example.zengarden.ui.theme.ZenGardenTheme
 @Composable
 fun PlantView(
     plantData: PlantData,
+    onDelete: (Int) -> Unit,
     modifier: Modifier,
 ) {
     Column(
@@ -186,7 +187,7 @@ fun PlantView(
             Spacer(Modifier.width(10.dp))
 
             ActionButton(
-                onClick = {},
+                onClick = { onDelete(plantData.id) },
                 text = "Delete",
                 modifier = Modifier
                     .fillMaxWidth()
@@ -215,6 +216,7 @@ fun PlantViewPreview() {
                     lightLevel = "Diffused light",
                     comment = "laskjhdfglusdnfvjnsldrhglksjdhfglkjsdhfgksheurg"
                 ),
+                onDelete = {},
                 modifier = Modifier
                     .fillMaxWidth(0.9f)
                     .background(

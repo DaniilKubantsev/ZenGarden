@@ -55,6 +55,7 @@ fun TemperatureSettingView(
         CustomTextField(
             value = minTempValue,
             onValueChange = onMinValueChange,
+            placeholder = "0",
             backgroundColor = ZenGardenTheme.colors.onTretiary,
             style = ZenGardenTheme.typography.body,
             shape = shape,
@@ -78,6 +79,7 @@ fun TemperatureSettingView(
             onValueChange = onMaxValueChange,
             backgroundColor = ZenGardenTheme.colors.onTretiary,
             style = ZenGardenTheme.typography.body,
+            placeholder = "0",
             keyboardOptions = KeyboardOptions(
                 keyboardType = KeyboardType.Number
             ),

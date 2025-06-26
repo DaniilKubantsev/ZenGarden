@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -17,6 +18,8 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.zengarden.auth.presentation.AuthEffect
 import com.example.zengarden.plants.presentation.composable.PlantCreateView
@@ -33,63 +36,64 @@ fun PlantsScreen(
     val state = viewModel.state.collectAsState()
 
 
-
-
-    when (state.value) {
-        is PlantsState.Main -> {
-            LazyColumn (
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.spacedBy(10.dp),
-                contentPadding = PaddingValues(5.dp),
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(paddingValues)
-                    .then(modifier)
-            ) {
-                items((state.value as PlantsState.Main).plantsData) { plantData ->
-                    PlantView(
-                        plantData = plantData,
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+    ){
+        when (state.value) {
+            is PlantsState.Main -> {
+                MainPlantState(
+                    state = state.value as PlantsState.Main,
+                    onEvent = viewModel::onEvent,
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(paddingValues)
+                        .then(modifier)
+                )
+            }
+            is PlantsState.CreatePlant -> {
+                Box(
+                    contentAlignment = Alignment.Center,
+                    modifier = Modifier
+                        .padding(paddingValues)
+                        .then(modifier)
+                ) {
+                    PlantCreateView(
+                        state = state.value as PlantsState.CreatePlant,
+                        onEvent = viewModel::onEvent,
+                        shape = RoundedCornerShape(31.dp),
+                        backgroundColor = ZenGardenTheme.colors.secondary,
                         modifier = Modifier
-                            .fillMaxWidth()
+                            .padding(10.dp)
                             .background(
-                                color = ZenGardenTheme.colors.secondary,
+                                color = ZenGardenTheme.colors.primary,
                                 shape = RoundedCornerShape(31.dp)
                             )
-                            .padding(10.dp)
+
                     )
                 }
             }
-        }
-        is PlantsState.CreatePlant -> {
-            Box(
-                contentAlignment = Alignment.Center,
-                modifier = Modifier
-                    .padding(paddingValues)
-                    .then(modifier)
-            ) {
-                PlantCreateView(
-                    title = "Create",
-                    state = state.value as PlantsState.CreatePlant,
-                    onSubmit = {},
-                    onEvent = {},
-                    shape = RoundedCornerShape(31.dp),
+            is PlantsState.EditPlant -> {
+
+            }
+            is PlantsState.Loading -> {
+                Box(
+                    contentAlignment = Alignment.Center,
                     modifier = Modifier
-                        .fillMaxWidth(0.9f)
-                        .background(
-                            color = ZenGardenTheme.colors.secondary,
-                            shape = RoundedCornerShape(31.dp)
-                        )
-                        .padding(10.dp)
-                )
+                        .background(ZenGardenTheme.colors.surface)
+                        .fillMaxSize()
+                ) {
+                    CircularProgressIndicator(
+                        color = ZenGardenTheme.colors.onAccent,
+                        modifier = Modifier.size(200.dp)
+                    )
+                }
+
             }
         }
-        is PlantsState.EditPlant -> {
-
-        }
-        is PlantsState.Loading -> {
-            CircularProgressIndicator()
-        }
     }
+
+
 
 
     LaunchedEffect(key1 = viewModel) {
