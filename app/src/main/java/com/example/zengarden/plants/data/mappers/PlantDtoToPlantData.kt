@@ -6,10 +6,10 @@ import com.example.zengarden.plants.domain.repository.PlantData
 fun PlantResponseDto.toPlantData(): PlantData {
     return PlantData(
         name = this.name,
-        wateringIntensity = this.wateringIntensity,
-        lightLevel = this.lightLevel,
-        temperatureRange = Pair(this.temperatureRange.min, this.temperatureRange.max),
-        comment = this.comment,
+        wateringIntensity = this.wateringIntensity ?: "medium",
+        lightLevel = this.lightLevel ?: "Diffused light",
+        temperatureRange = Pair(this.temperatureRange?.min?.toInt() ?: 0, this.temperatureRange?.max?.toInt() ?: 0),
+        comment = this.comment?: "",
         id = this.id,
     )
 }

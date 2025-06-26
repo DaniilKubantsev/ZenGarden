@@ -24,4 +24,20 @@ val Error = Color(0xFFFA4F4F)
 val DarkGrey = Color(0xff363737)
 val LightGrey = Color(0xFF848787)
 
+val Waterign = Color(0xFF8BD3E6)
+val OnWatering = Color(0xFF3D5FB2)
+
+val LightLevel = Color(0xFFFFEB82)
+val OnLightLevel = Color(0xFFECBA04)
+
+val Temp = Color(0xFFFFB347)
+val OnTemp = Color(0xFFC37200)
+
+val Secondary = Color(0xFFF5F5DC)
 val onSecondary = Color(0xFF3E5D12)
+
+val Tretiary = Color(0xFFE3E3D1)
+val OnTretiary = Color(0xFF676666)
+
+
+

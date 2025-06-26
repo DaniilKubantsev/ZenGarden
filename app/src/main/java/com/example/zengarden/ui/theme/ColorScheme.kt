@@ -1,5 +1,6 @@
 package com.example.zengarden.ui.theme
 
+import android.health.connect.datatypes.units.Temperature
 import androidx.compose.ui.graphics.Color
 
 data class ZenGardenColorScheme(
@@ -13,9 +14,16 @@ data class ZenGardenColorScheme(
     val onAccent: Color,
     val error: Color,
 
-    val title: Color,
-    val body: Color,
-    val label: Color,
+    val tretiary: Color,
+    val onTretiary: Color,
+
+    val watering: Color,
+    val onWatering: Color,
+    val lightLevel: Color,
+    val onLightLevel: Color,
+    val temperature: Color,
+    val onTemperature: Color,
+
 )
 
 val lightZenGardenColorScheme = ZenGardenColorScheme(
@@ -23,14 +31,21 @@ val lightZenGardenColorScheme = ZenGardenColorScheme(
     background = TeaGreen,
     primary = Olivine,
     onPrimary = DarkOliveGreen,
-    secondary = DarkOliveGreen,
+    secondary = Secondary,
     onSecondary = White,
     accent = Chamoisee,
     onAccent = Umber,
     error = Error,
-    title = DarkGrey,
-    body = DarkGrey,
-    label = LightGrey
+
+    tretiary = Tretiary,
+    onTretiary = OnTretiary,
+
+    watering = Waterign,
+    onWatering = OnWatering,
+    lightLevel = LightLevel,
+    onLightLevel = OnLightLevel,
+    temperature = Temp,
+    onTemperature = OnTemp,
 )
 
 val darkZenGardenColorScheme = lightZenGardenColorScheme.copy()

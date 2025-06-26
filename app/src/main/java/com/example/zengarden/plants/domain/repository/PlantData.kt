@@ -1,8 +1,5 @@
 package com.example.zengarden.plants.domain.repository
 
-import com.example.zengarden.plants.data.remote.TemperatureRange
-import com.google.gson.annotations.SerializedName
-
 data class PlantData(
     val name: String = "",
     val wateringIntensity: String = "",

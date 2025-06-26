@@ -42,7 +42,7 @@ class MainActivity : ComponentActivity() {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
 
                     val jwtManager = JwtManager(applicationContext)
-//                    jwtManager.clearToken()
+                    //jwtManager.clearToken()
                     val token = jwtManager.getToken()
 
 
@@ -68,6 +68,13 @@ class MainActivity : ComponentActivity() {
                         composable(NavRoutes.plants) {
                             PlantsScreen(
                                 viewModel = koinViewModel(),
+                                onUnauth = {
+                                    navController.navigate(NavRoutes.auth) {
+                                        popUpTo(NavRoutes.plants){
+                                            inclusive = true
+                                        }
+                                    }
+                                },
                                 paddingValues = innerPadding,
                                 modifier = Modifier
                                     .fillMaxSize()
@@ -93,7 +100,6 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             text = "Hello $name!",
             modifier = modifier,
             style = MaterialTheme.typography.displayLarge,
-            color = ZenGardenTheme.colors.title
         )
     }
 

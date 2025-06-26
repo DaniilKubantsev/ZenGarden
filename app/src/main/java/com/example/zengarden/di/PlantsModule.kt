@@ -9,5 +9,5 @@ import org.koin.dsl.module
 
 val plantsModule = module {
     single<PlantsRepository> { PlantsRepositoryImpl(get()) }
-    viewModel<PlantsViewModel> { PlantsViewModel(get()) }
+    viewModel<PlantsViewModel> { PlantsViewModel(get(), get()) }
 }

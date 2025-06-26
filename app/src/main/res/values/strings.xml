@@ -14,4 +14,20 @@
     <string name="to_sign_in">To sign in?</string>
     <string name="to_sign_up">To sign up?</string>
 
+    <string name="watering_level">💦 Watering </string>
+    <string name="light_level">☀️ Light level </string>
+    
+    <string-array name="watering_options">
+        <item>Light</item>
+        <item>Medium</item>
+        <item>Deep</item>
+    </string-array>
+
+    <string-array name="light_options">
+        <item>Shadow</item>
+        <item>Penumbra</item>
+        <item>Diffused light</item>
+        <item>Direct light</item>
+    </string-array>
+
 </resources>
